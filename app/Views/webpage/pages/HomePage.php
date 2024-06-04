@@ -19,5 +19,3 @@
 </div>
 
 </section>
-
-<?php print_r("token :", get_cookie('token')) ?>
