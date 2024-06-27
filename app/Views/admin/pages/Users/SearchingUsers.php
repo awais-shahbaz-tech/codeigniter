@@ -78,11 +78,10 @@
 <script src="https://maps.google.com/maps/api/js?key=AIzaSyAe9eq-RqIW3qMy8I8UJ5vjis9iilcSYik&libraries=places&callback=initAutocomplete"></script>
 <script>
 $(document).ready(function() {
-    $("#latitudeArea").addClass("d-none");
-    $("#longtitudeArea").addClass("d-none");
+    $("#latitudeArea, #longtitudeArea").addClass("d-none");
 });
 
-google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load', initialize); 
 
 function initialize() {
     var input = document.getElementById('autocomplete');
@@ -90,39 +89,27 @@ function initialize() {
 
     autocomplete.addListener('place_changed', function() {
         var place = autocomplete.getPlace();
-        if (!place.geometry) {
-            // No geometry means the user hasn't selected a suggestion
-            return;
-        }
+        if (!place.geometry) return;
 
-        var latitude = place.geometry['location'].lat();
-        var longitude = place.geometry['location'].lng();
-        window.location.href = "<?php echo base_url();?>admin/searchingusers/" + latitude + "/" + longitude;
-
-        $("#latitudeArea").removeClass("d-none");
-        $("#longtitudeArea").removeClass("d-none");
+        var { lat, lng } = place.geometry.location;
+        window.location.href = "<?php echo base_url();?>admin/searchingusers/" + lat() + "/" + lng();
+        $("#latitudeArea, #longtitudeArea").removeClass("d-none");
     });
 
-    // Custom event for Enter key press 
     google.maps.event.addDomListener(input, 'keydown', function(e) {
-        if (e.keyCode === 13) { // Enter key code
-            e.preventDefault(); // Prevent form submission
+        if (e.keyCode !== 13) return;
 
-            var firstPredictionService = new google.maps.places.AutocompleteService();
-            firstPredictionService.getPlacePredictions({ input: input.value }, function(predictions, status) {
-                if (status === google.maps.places.PlacesServiceStatus.OK && predictions.length > 0) {
-                    var firstPrediction = predictions[0];
-                    var placesService = new google.maps.places.PlacesService(document.createElement('div'));
-                    placesService.getDetails({ placeId: firstPrediction.place_id }, function(place, status) {
-                        if (status === google.maps.places.PlacesServiceStatus.OK) {
-                            var latitude = place.geometry.location.lat();
-                            var longitude = place.geometry.location.lng();
-                            window.location.href = "<?php echo base_url();?>admin/searchingusers/" + latitude + "/" + longitude;
-                        }
-                    });
-                }
-            });
-        }
+        e.preventDefault();
+        new google.maps.places.AutocompleteService().getPlacePredictions({ input: input.value }, function(predictions, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK && predictions.length > 0) {
+                new google.maps.places.PlacesService(document.createElement('div')).getDetails({ placeId: predictions[0].place_id }, function(place, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        var { lat, lng } = place.geometry.location;
+                        window.location.href = "<?php echo base_url();?>admin/searchingusers/" + lat() + "/" + lng();
+                    }
+                });
+            }
+        });
     });
 }
 </script>
