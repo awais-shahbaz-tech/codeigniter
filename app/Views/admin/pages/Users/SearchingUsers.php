@@ -26,15 +26,7 @@
                                     placeholder="Choose Location">
                             </div>
 
-                            <!-- <div class="form-group mb-3" id="latitudeArea">
-                                <label>Latitude</label>
-                                <input type="text" class="form-control" name="latitude" id="latitude">
-                            </div>
-
-                            <div class="form-group mb-3" id="longtitudeArea">
-                                <label>Longitude</label>
-                                <input type="text" class="form-control" name="longitude" id="longitude">
-                            </div> -->
+                    
 
 
 
