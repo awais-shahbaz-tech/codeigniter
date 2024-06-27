@@ -29,7 +29,7 @@ class VerifyController extends BaseController
         if ($users) {
          
                 $this->user->update($users['id'], ['verify' => true, 'otp' => null,]);
-                return $this->response->setJSON(['status' => "User verified successfully"]);
+                return $this->response->setJSON(['status' => "User verified successfully"] , 200);
             } 
          else {
             return $this->response->setJSON(['status' => "Invalid OTP"], 400);

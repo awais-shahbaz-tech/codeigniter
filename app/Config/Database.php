@@ -26,7 +26,7 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'https://outdoor-agnes-innovationtech-6e4d4308.koyeb.app',
+        'hostname'     => 'localhost',
         'username'     => 'root',
         'password'     => '',
         'database'     => 'ci_crud_db',

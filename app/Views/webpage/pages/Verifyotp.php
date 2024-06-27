@@ -17,8 +17,9 @@
                                         placeholder="otp" maxlength="4">
                                 </div>
                             </div>
-                          
+                            
                             <button type="submit" class="btn-login btn-default">Confirm</button>
+                             
                         </form>
                     </div>
                 </div>

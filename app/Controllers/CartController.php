@@ -40,10 +40,42 @@ class CartController extends BaseController
 
     public function addProduct()
     {
+    
+        $userId = $this->request->getPost('user_id');
+        $brand_name = $this->request->getPost('brand_name');
+        $productName = $this->request->getPost('product_name');
+        $productPrice = $this->request->getPost('product_price');
+        $productImage = $this->request->getPost('product_image');
+        $productQuanity = $this->request->getPost('product_quantity');
+  
+      
+
+        $numericPrice = str_replace(['PKR ', ','], '', $productPrice);
+        $formattedPrice =  number_format((float)$numericPrice, 2, '.', '');
+
+        $existingCart = $this->cartModel->where('user_id', $userId)->where('product_name', $productName)->first();
+     
+        if ($existingCart) {
+            $newQuantity = $existingCart['product_quantity'] + 1;
+            $this->cartModel->update($existingCart['id'], ['product_quantity' => $newQuantity]);
+            $message = 'Product quantity updated in the cart';
+          
+        }
+        else{
+        $this->cartModel->save(["user_id"=> $userId, "brand_name"=>$brand_name , "product_name"=>$productName ,  "product_price"=>$formattedPrice , "product_image"=>$productImage ,"product_quantity"=>$productQuanity ]);
+        $message = 'Product added to cart';
+        }
+        return $this->response->setJSON(['status' =>$message  ]);
+    }
+   
+    
+    
+    public function addProductphp()
+    {
         $token = get_cookie("token");
         if ($token !== null) {
         $userId = get_cookie('user_id');
-        $brand_name = $this->request->getPost('brand_name');
+        $brand_name = get_cookie('brand_name');
         $productName = $this->request->getPost('product_name');
         $productPrice = $this->request->getPost('product_price');
         $productImage = $this->request->getPost('product_image');
@@ -78,11 +110,16 @@ class CartController extends BaseController
         $cartId = $this->request->getPost('id');
        
         $productQuanity = $this->request->getPost('product_quantity');
+        
         $existingCart = $this->cartModel->where('id', $cartId)->first();
-
+           if ($existingCart && $productQuanity) {
         $this->cartModel->update($existingCart['id'], ['product_quantity' => $productQuanity]);
      
         return $this->response->setJSON(['status' =>'Cart updated'  ]);
+           }
+           else{
+                return $this->response->setJSON(['status' =>'Not Found Cart'  ]);
+           }
     }
 
     public function removeProduct()

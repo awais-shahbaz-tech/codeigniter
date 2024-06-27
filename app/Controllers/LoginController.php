@@ -21,6 +21,13 @@ class LoginController extends BaseController
         echo view('/webpage/sections/footer');
     }
 
+    public function adminlogin()
+	{
+       
+        echo view("/admin/pages/Users/Login");
+        echo view('/admin/Sections/footer');
+    }
+
   
 
 
@@ -40,7 +47,7 @@ class LoginController extends BaseController
             // Verify the password
             if (password_verify($password, $user['password'])) {
          
-                $key = getenv('JWT_SECRET_KEY');
+                $key = "kzUf4sxss4AeG5uHkNZAqT1Nyi1zVfpz";
                 $payload = [
                     'iat' => time(),
                     'exp' => time() + 3600,
@@ -49,18 +56,18 @@ class LoginController extends BaseController
                 ];
 
                 $jwt = JWT::encode($payload, $key, 'HS256');
-                set_cookie('token', $jwt, 14400); 
-                return $this->response->setJSON(['status' => "Login successful" , "token" => $jwt]);
+              
+                return $this->response->setJSON(['status' => "Login successful" , "token" => $jwt , "userid"=>$user['id']]);
             } else {
                 return $this->response->setJSON(['status' => "Invalid password"], 401);
             }
         } else {
-            return $this->response->setJSON(['status' => "User not found"], 404);
+            return $this->response->setStatusCode(404)->setJSON(['status' => "User not found"]);
         }
     }
 
 
-    public function userloginphp()
+    public function userloginphp($role = null)
     {
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
@@ -74,7 +81,7 @@ class LoginController extends BaseController
             }
 
             if (password_verify($password, $user['password'])) {
-                 $key = getenv('JWT_SECRET_KEY');
+                 $key =  "kzUf4sxss4AeG5uHkNZAqT1Nyi1zVfpz";
                  session()->setFlashdata('login',"Login successful");
                  
                  $payload = [
@@ -113,8 +120,13 @@ class LoginController extends BaseController
                 ]
             );
                 session()->setFlashdata('token',$jwt);
-           
+              if($role === "admin"){
+                return redirect()->to(base_url('admin/dashboard'));
+              }
+              else
                  return redirect()->to(base_url('webpage/homepage'));
+                
+
 
             } else {
                 session()->setFlashdata('login',"Invalid password");
@@ -126,7 +138,7 @@ class LoginController extends BaseController
         }
     }
 
-    public function signout()
+    public function signout($role = null)
     {
         // Delete cookies
         setcookie('token', '', [
@@ -148,7 +160,12 @@ class LoginController extends BaseController
         ]);
 
         // Redirect to login page or homepage
-        return redirect()->to(base_url('webpage/login'));
+        if($role === "admin"){
+        return redirect()->to(base_url('admin/login'));
+        }
+        else{
+            return redirect()->to(base_url('webpage/login'));
+        }
     }
 
 }

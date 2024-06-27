@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="col-lg-6 order-1 order-lg-2 hero-img" >
-      <img src="<?php echo base_url();?>assets/img/hero-img.png"  alt="">
+      <img src="<?php echo base_url();?>public/assets/img/hero-img.png"  alt="">
     </div>
   </div>
 </div>

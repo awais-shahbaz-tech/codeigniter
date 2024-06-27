@@ -8,7 +8,7 @@
                         <div class="form-icon" bis_skin_checked="1"><i class="fa fa-user"></i></div>
                         <h3 class="title">Login</h3>
                         
-                        <form class="form-horizontal" method="post" action = "<?php echo base_url().'loginuser' ; ?>">
+                        <form class="form-horizontal" method="post" action = "<?php echo base_url().'loginuser/user' ; ?>">
                         <?php if (session()->getFlashdata("success")): ?>
                         <div class="alert align-self-center alert-success alert-dismissible fade show" role="alert">
 			<?php echo session()->getFlashdata("success"); ?>

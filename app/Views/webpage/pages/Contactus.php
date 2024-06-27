@@ -1,9 +1,9 @@
 <?php 
-        if(session()->getFlashdata('sent')){
+        if(session()->getFlashdata('sentmsg')){
         ?>
 
-		<div class="alert w-50 d-flex justify-content-center alert-success alert-dismissible fade show" role="alert">
-			<?php echo session()->getFlashdata("sent"); ?>
+		<div class="alert d-flex justify-content-center alert-success alert-dismissible fade show" role="alert">
+			<?php echo session()->getFlashdata("sentmsg"); ?>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
@@ -18,7 +18,7 @@
 					<h2 class="form-title">Contact us</h2>
 						<p class="justify text-muted-contact">Have an enquiry or would like to give us feedback?<br>Fill out the form below to contact our team.</p>
 
-                        <form action = "<?php echo base_url().'send-mail' ; ?>" method = "POST" >
+                        <form action = "<?php echo base_url().'send-mailphp' ; ?>" method = "POST" >
 						<div class="form-group-contact pt-2 pl-1">
 							<label for="exampleInputName">Your name</label>
 							<input type="text" class="form-control" name="name" id="exampleInputName">

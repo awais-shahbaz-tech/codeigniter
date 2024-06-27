@@ -22,8 +22,9 @@ $routes->get('/webpage/(:any)/(:any)/(:num)', 'ScrapStore::index/$1/$2/$3');
 $routes->post('/set-session-data', 'ScrapStore::setSessionData');
 
 $routes->get('/webpage/cart', 'CartController::index');
-$routes->get('/cart', 'CartController::getCart'); // Get cart items by user ID
+$routes->get('/cart/(:num)', 'CartController::getCart/$1'); // Get cart items by user ID
 $routes->post('/addtocart', 'CartController::addProduct');  // Add product to cart
+$routes->post('/addtocartphp', 'CartController::addProductphp');  // Add product to cart
 $routes->post('/updatecart', 'CartController::updateProduct');  // Update product quantity in cart
 $routes->post('/removecart', 'CartController::removeProduct');  // Remove product from cart
 
@@ -31,6 +32,7 @@ $routes->post('/removecart', 'CartController::removeProduct');  // Remove produc
 $routes->get('/webpage/contact-us', 'Contactus::index');
 
 $routes->post('/send-mail', 'Contactus::sendMail');
+$routes->post('/send-mailphp', 'Contactus::sendMailphp');
 
 $routes->get('/webpage/login', 'LoginController::index');
 $routes->get('/webpage/signup', 'SignupController::index');
@@ -46,9 +48,33 @@ $routes->post('/verify', 'VerifyController::verifyOtp');
 $routes->post('/verifyuser', 'VerifyController::verifyOtpphp');
 
 $routes->post('/login', 'LoginController::userlogin');
-$routes->post('/loginuser', 'LoginController::userloginphp');
+$routes->post('/loginuser/(:any)?', 'LoginController::userloginphp/$1');
 
-$routes->get('/signout' , 'LoginController::signout');
+
+
+$routes->get('/signout/(:any)' , 'LoginController::signout/$1');
+
+
+
+
+/////admin routes 
+
+$routes->get('/admin/dashboard', 'AdminController::index');
+$routes->get('/admin/users', 'UsersController::index');
+
+$routes->get('/admin/login' , 'LoginController::adminlogin');
+
+$routes->get('/admin/orders' , 'OrdersController::index');
+$routes->get('/admin/searchingusers/(:any)?/(:any)?', 'SearchingController::index/$1/$2');
+
+
+
+$routes->post('/user/createorders' , 'OrdersController::CreateOrder');
+
+
+
+
+
 
 
 

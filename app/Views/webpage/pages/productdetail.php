@@ -48,7 +48,7 @@
                 
                console.log("222323" , productprice)
                 $.ajax({
-                    url:"<?php echo base_url(); ?>"+"addtocart",
+                    url:"<?php echo base_url(); ?>"+"addtocartphp",
                   
                     type: 'POST',
                     data: {

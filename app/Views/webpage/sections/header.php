@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="<?php echo base_url();?>public/assets/img/favicon.png" rel="icon">
-  <link href="<?php echo base_url();?>public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="<?php echo base_url();?>assets/img/favicon.png" rel="icon">
+  <link href="<?php echo base_url();?>assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -43,7 +43,7 @@
 
 
   <!-- Template Main CSS File -->
-  <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
+  <link href="<?php echo base_url();?>public/assets/css/style.css" rel="stylesheet">
   <link href="<?php echo base_url();?>public/css/productcard.css" rel="stylesheet">
   <link href="<?php echo base_url();?>public/css/detailpage.css" rel="stylesheet">
 
@@ -83,7 +83,7 @@
               <li><a href="<?php echo base_url();?>webpage/login">Login</a></li>
               <li><a href="<?php echo base_url();?>webpage/signup">Signup</a></li>
           <?php else: ?>
-              <li><a href="<?php echo base_url();?>signout" >Signout</a></li>
+              <li><a href="<?php echo base_url();?>signout/user" >Signout</a></li>
           <?php endif; ?>
           <li class="get-started"><a href="<?php echo base_url();?>webpage/contact-us">Contact Us</a></li>
           <li ><a href="<?php echo base_url();?>webpage/cart">Cart</a></li>
